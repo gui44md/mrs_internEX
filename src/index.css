@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(0, 53, 91, 0.55), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(255, 207, 0, 0.06), transparent 40%),
+    #030f1a;
+  color: #f5f8fa;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #1b4569;
+  border-radius: 8px;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', sans-serif;
+}
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.rail-tie {
+  background-repeat: repeat-x;
+  background-size: 14px 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.14) 0px,
+    rgba(255, 255, 255, 0.14) 3px,
+    transparent 3px,
+    transparent 14px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
