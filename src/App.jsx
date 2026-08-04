@@ -52,6 +52,7 @@ export default function App() {
               selectedId={selectedId}
               onSelect={setSelectedId}
             />
+            {selected && <HistoryChart substation={selected} />}   {/* <- adicionar */}
           </div>
 
           <DetailPanel substation={selected} onClose={() => setSelectedId(null)} />
