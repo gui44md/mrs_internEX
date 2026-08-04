@@ -5,9 +5,7 @@ import RailLineMap from './components/RailLineMap'
 import AttentionPanel from './components/AttentionPanel'
 import SubstationTable from './components/SubstationTable'
 import DetailPanel from './components/DetailPanel'
-import { generateSubstations } from './data/substations'
-import DetailPanel from './components/DetailPanel'
-import HistoryChart from './components/HistoryChart'   // <- adicionar
+import HistoryChart from './components/HistoryChart' 
 import { generateSubstations } from './data/substations'
 
 export default function App() {
