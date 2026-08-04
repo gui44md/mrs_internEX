@@ -126,3 +126,47 @@ export const FLEET_TARGETS = {
   mttrHours: 5,
   mtbfHours: 800,
 }
+
+// Série histórica (24h, leitura a cada hora) de temperatura e consumo de uma subestação.
+// Usa um RNG com seed derivada do id do ativo para o histórico ser estável entre renders,
+// mas diferente de um ativo para o outro, e converge para os valores "atuais" de generateSubstations.
+function seedFromId(id) {
+  let h = 0
+  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0
+  return h
+}
+
+export function generateHistory(substation, hours = 24) {
+  const localRng = mulberry32(seedFromId(substation.id) + 7)
+  const localRand = (min, max) => min + localRng() * (max - min)
+
+  const points = []
+  let temp = substation.temperature - localRand(-4, 6)
+  let consumption = substation.consumptionMW - localRand(-1.5, 2)
+
+  for (let h = hours - 1; h >= 0; h--) {
+    temp += localRand(-1.6, 1.6)
+    consumption += localRand(-0.6, 0.6)
+    temp = Math.max(30, Math.min(96, temp))
+    consumption = Math.max(1.5, Math.min(20, consumption))
+
+    const hour = new Date()
+    hour.setMinutes(0, 0, 0)
+    hour.setHours(hour.getHours() - h)
+
+    points.push({
+      time: hour.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+      temperature: +temp.toFixed(1),
+      consumptionMW: +consumption.toFixed(1),
+    })
+  }
+
+  // força o último ponto a bater com a leitura "ao vivo" exibida no resto do dashboard
+  points[points.length - 1] = {
+    ...points[points.length - 1],
+    temperature: substation.temperature,
+    consumptionMW: substation.consumptionMW,
+  }
+
+  return points
+}
