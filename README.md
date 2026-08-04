@@ -71,4 +71,4 @@ src/
 - Conectar a uma API real (ex.: histórico de leituras SCADA) em vez de dados mockados
 - Adicionar gráfico de série histórica de temperatura/consumo por subestação
 - Exportar relatório em PDF do ranking de atenção
-- Autenticação e níveis de acesso (operador x gestor)
+- Autenticação e níveis de acesso (operador e gestor)
